@@ -26,6 +26,7 @@ const Home = () => {
             <div className='home'>
                 <Posts
                     posts={posts}
+                    key={posts._id}
                 ></Posts>
                 <Sidebar></Sidebar>
             </div>

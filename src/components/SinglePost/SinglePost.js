@@ -18,6 +18,16 @@ const SinglePost = () => {
         }
         getPost()
     }, [path])
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete("/posts/" + path, {
+                data: { username: user.username }
+            });
+            window.location.replace("/");
+        }
+        catch (err) { }
+    }
     return (
         <div className="singlePost">
             <div className="singlePostWrapper">
@@ -32,10 +42,10 @@ const SinglePost = () => {
                 }
                 <h1 className="singlePostTitle">
                     {post.title}
-                    {post.username === user.username &&
+                    {post.username === user?.username &&
                         <div className="singlePostEdit">
                             <i className="singlePostIcon far fa-edit"></i>
-                            <i className="singlePostIcon far fa-trash-alt"></i>
+                            <i className="singlePostIcon far fa-trash-alt" onClick={handleDelete}></i>
                         </div>}
                 </h1>
                 <div className="singlePostInfo">
