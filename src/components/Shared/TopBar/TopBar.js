@@ -1,9 +1,15 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../../../context/Context';
 import './TopBar.css';
 
 const TopBar = () => {
+    const { user, dispatch } = useContext(Context);
+
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" });
+    }
     return (
         <div className='top'>
             <div className="topLeft">
@@ -14,15 +20,25 @@ const TopBar = () => {
             </div>
             <div className="topCenter">
                 <ul className="topList">
-                    <li className="topListItem"><Link to="/">Home</Link></li>
-                    <li className="topListItem"><Link to="/about">About</Link></li>
-                    <li className="topListItem"><Link to="/contact">Contact</Link></li>
-                    <li className="topListItem"><Link to="/write">Write</Link></li>
-                    <li className="topListItem"><Link to="/login">Login</Link></li>
+                    <li className="topListItem"><Link className='link' to="/">Home</Link></li>
+                    <li className="topListItem"><Link className='link' to="/about">About</Link></li>
+                    <li className="topListItem"><Link className='link' to="/contact">Contact</Link></li>
+                    <li className="topListItem"><Link className='link' to="/write">Write</Link></li>
+                    {user && <li className="topListItem" onClick={handleLogout}>Logout</li>}
                 </ul>
             </div>
             <div className="topRight">
-                <img className="topImg" src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Profile Image" />
+                {user ? (<img
+                    className="topImg"
+                    src={user.profilePic}
+                    alt="Profile Image" />)
+                    : (
+                        <ul className='topList'>
+                            <li className="topListItem"><Link className='link' to="/login">Login</Link></li>
+                            <li className="topListItem"><Link className='link' to="/register">Register</Link></li>
+                        </ul>
+                    )
+                }
                 <i className="topSearchIcon fas fa-search"></i>
             </div>
         </div>
