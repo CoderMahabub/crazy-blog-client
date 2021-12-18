@@ -28,13 +28,11 @@ const Sidebar = () => {
             <div className="sidebarItem">
                 <span className="sidebarTitle">CATEGORIES</span>
                 <ul className="sidebarList">
-                    <li className="sidebarListItem">
-                        {cats.map((c) => <li className="sidebarListItem">
-                            <Link className="link" to={`/?cat=${c.name}`}>
-                                {c.name}
-                            </Link>
-                        </li>)}
-                    </li>
+                    {cats.map((c) => (
+                        <Link to={`/?cat=${c.name}`} className="link">
+                            <li className="sidebarListItem">{c.name}</li>
+                        </Link>
+                    ))}
                 </ul>
             </div>
             <div className="sidebarItem">
